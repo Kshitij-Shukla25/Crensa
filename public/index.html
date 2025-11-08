@@ -1,0 +1,3000 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crensa Creator Beta Program - Be Among the First</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'crensa-navy': '#01164D',
+            'crensa-green': '#62CF6F',
+            'crensa-teal': '#00BA9C',
+            'crensa-lime': '#D5E73C',
+            'crensa-yellow': '#CCE53F',
+            'crensa-magenta': '#85125E',
+            'crensa-pink': '#C81D84',
+            'crensa-rose': '#D9208F'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+    * {
+      font-family: 'Poppins', 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #70B2B2 0%, #5A9A9A 50%, #4A8A8A 100%);
+      min-height: 100vh;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #320A6B, #01164D, #85125E);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 300% 300%;
+      animation: gradientShift 4s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      25% {
+        background-position: 100% 50%;
+      }
+
+      50% {
+        background-position: 100% 100%;
+      }
+
+      75% {
+        background-position: 0% 100%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .gradient-bg {
+      background: linear-gradient(135deg, #70B2B2, #5A9A9A);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+    }
+
+    .modern-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .modern-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .animate-pulse-slow {
+      animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .animate-bounce-slow {
+      animation: bounceGentle 2s ease-in-out infinite;
+    }
+
+    @keyframes bounceGentle {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(2deg);
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide-in-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .slide-in-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .slide-in-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .slide-in-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .hero-bg {
+      background: radial-gradient(circle at 30% 20%, rgba(98, 207, 111, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(213, 231, 60, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(0, 186, 156, 0.2) 0%, transparent 50%);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #62CF6F, #D5E73C);
+      box-shadow: 0 10px 30px rgba(98, 207, 111, 0.4);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(98, 207, 111, 0.6);
+    }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      margin: 4rem 0;
+    }
+
+    /* Mobile Swipe Cards */
+    .swipe-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 300px;
+    }
+
+    .swipe-cards {
+      display: flex;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 100%;
+    }
+
+    .swipe-card {
+      min-width: 85%;
+      margin-right: 4%;
+      position: relative;
+      transform-origin: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .swipe-card.active {
+      transform: scale(1);
+      opacity: 1;
+      z-index: 3;
+    }
+
+    .swipe-card.prev {
+      transform: scale(0.9) translateX(-20px);
+      opacity: 0.7;
+      z-index: 2;
+    }
+
+    .swipe-card.next {
+      transform: scale(0.9) translateX(20px);
+      opacity: 0.7;
+      z-index: 2;
+    }
+
+    .swipe-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .indicator.active {
+      background: #62CF6F;
+      transform: scale(1.2);
+    }
+
+    .card-floating {
+      animation: cardFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes cardFloat {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-10px) rotate(1deg);
+      }
+    }
+
+    .card-glow {
+      box-shadow: 0 0 30px rgba(98, 207, 111, 0.3);
+      animation: glowPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 30px rgba(98, 207, 111, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 50px rgba(98, 207, 111, 0.6);
+      }
+    }
+
+    /* Show only swipe cards on mobile, hide desktop timeline */
+    @media (max-width: 768px) {
+      .desktop-timeline {
+        display: none !important;
+      }
+
+      .mobile-timeline {
+        display: block;
+      }
+
+      .desktop-benefits {
+        display: none !important;
+      }
+
+      .mobile-benefits {
+        display: block;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .desktop-timeline {
+        display: block;
+      }
+
+      .mobile-timeline {
+        display: none;
+      }
+
+      .desktop-benefits {
+        display: block;
+      }
+
+      .mobile-benefits {
+        display: none;
+      }
+    }
+
+    /* Benefits Swipe Cards */
+    .benefits-swipe-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 320px;
+    }
+
+    .benefits-swipe-cards {
+      display: flex;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 100%;
+    }
+
+    .benefits-swipe-card {
+      min-width: 90%;
+      margin-right: 3%;
+      position: relative;
+      transform-origin: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .benefits-swipe-card.active {
+      transform: scale(1);
+      opacity: 1;
+      z-index: 3;
+    }
+
+    .benefits-swipe-card.prev {
+      transform: scale(0.85) translateX(-30px);
+      opacity: 0.6;
+      z-index: 2;
+    }
+
+    .benefits-swipe-card.next {
+      transform: scale(0.85) translateX(30px);
+      opacity: 0.6;
+      z-index: 2;
+    }
+
+    .benefits-card-content {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefits-card-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(98, 207, 111, 0.1), rgba(213, 231, 60, 0.1));
+      border-radius: 20px;
+      z-index: -1;
+    }
+
+    .benefits-icon-wrapper {
+      position: relative;
+      margin: 0 auto 1.5rem;
+    }
+
+    .benefits-icon-wrapper::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: linear-gradient(45deg, rgba(98, 207, 111, 0.3), rgba(213, 231, 60, 0.3));
+      border-radius: 50%;
+      animation: iconGlow 2s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes iconGlow {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 0.6;
+      }
+    }
+
+    .benefits-swipe-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .benefits-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .benefits-indicator.active {
+      background: #62CF6F;
+      transform: scale(1.3);
+      box-shadow: 0 0 10px rgba(98, 207, 111, 0.5);
+    }
+
+    /* Testimonial Slideshow */
+    .testimonial-slideshow {
+      position: relative;
+      overflow: hidden;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .testimonial-slides {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .testimonial-slide {
+      min-width: 100%;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .testimonial-slide.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin: 0 1rem;
+    }
+
+    .testimonial-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(98, 207, 111, 0.05), rgba(213, 231, 60, 0.05));
+      border-radius: 24px;
+      z-index: -1;
+    }
+
+    .testimonial-avatar {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+    }
+
+    .testimonial-avatar::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(45deg, rgba(98, 207, 111, 0.4), rgba(213, 231, 60, 0.4));
+      border-radius: 50%;
+      animation: avatarGlow 3s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes avatarGlow {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.4;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+      }
+    }
+
+    .testimonial-quote {
+      font-size: 1.5rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      position: relative;
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    /* Mobile responsive text sizing */
+    @media (max-width: 768px) {
+      .testimonial-quote {
+        font-size: 1.1rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+      }
+
+      .testimonial-author {
+        font-size: 1.1rem;
+      }
+
+      .testimonial-role {
+        font-size: 0.9rem;
+      }
+
+      .testimonial-quote::before {
+        font-size: 2.5rem;
+        top: -0.5rem;
+        left: -0.5rem;
+      }
+
+      .testimonial-quote::after {
+        font-size: 2.5rem;
+        bottom: -1rem;
+        right: -0.5rem;
+      }
+    }
+
+    .testimonial-quote::before {
+      content: '"';
+      font-size: 4rem;
+      position: absolute;
+      top: -1rem;
+      left: -1rem;
+      color: rgba(255, 255, 255, 0.2);
+      font-family: serif;
+    }
+
+    .testimonial-quote::after {
+      content: '"';
+      font-size: 4rem;
+      position: absolute;
+      bottom: -2rem;
+      right: -1rem;
+      color: rgba(255, 255, 255, 0.2);
+      font-family: serif;
+    }
+
+    .testimonial-author {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+
+    .testimonial-role {
+      opacity: 0.8;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Apply Now Button Mobile Styling */
+    .apply-now-btn {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffffff, #f0f0f0);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: buttonPulse 3s ease-in-out infinite;
+    }
+
+    .apply-now-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
+    }
+
+    .apply-now-btn:hover::before {
+      left: 100%;
+    }
+
+    .apply-now-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    .apply-now-btn:active {
+      transform: translateY(-1px) scale(1.02);
+    }
+
+    @keyframes buttonPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15), 0 0 0 0 rgba(255, 255, 255, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15), 0 0 0 10px rgba(255, 255, 255, 0);
+      }
+    }
+
+    @keyframes buttonFloat {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    /* Mobile-specific button styling */
+    @media (max-width: 768px) {
+      .apply-now-btn {
+        padding: 0.75rem 1.5rem !important;
+        font-size: 0.9rem !important;
+        animation: buttonFloat 2s ease-in-out infinite, buttonPulse 3s ease-in-out infinite;
+      }
+
+      .apply-now-btn-text {
+        display: block;
+      }
+
+      .apply-now-btn-text-short {
+        display: none;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .apply-now-btn-text {
+        display: none;
+      }
+
+      .apply-now-btn-text-short {
+        display: block;
+      }
+    }
+
+    /* Final CTA Button Mobile Styling */
+    .final-cta-btn {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffffff, #f0f0f0);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .final-cta-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
+    }
+
+    .final-cta-btn:hover::before {
+      left: 100%;
+    }
+
+    .final-cta-btn:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .final-cta-btn {
+        padding: 1rem 2rem !important;
+        font-size: 1rem !important;
+        line-height: 1.2;
+      }
+
+      .final-cta-text-mobile {
+        display: block;
+      }
+
+      .final-cta-text-desktop {
+        display: none;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .final-cta-text-mobile {
+        display: none;
+      }
+
+      .final-cta-text-desktop {
+        display: block;
+      }
+    }
+
+    .slideshow-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .slideshow-nav {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .slideshow-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .slideshow-dot.active {
+      background: #62CF6F;
+      transform: scale(1.2);
+      box-shadow: 0 0 15px rgba(98, 207, 111, 0.6);
+    }
+
+    .slideshow-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .slideshow-btn:hover {
+      background: rgba(98, 207, 111, 0.2);
+      transform: scale(1.1);
+    }
+
+    .slideshow-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      transform: scale(1);
+    }
+
+    /* Auto-play progress bar */
+    .slideshow-progress {
+      width: 100%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+      margin-top: 1rem;
+      overflow: hidden;
+    }
+
+    .slideshow-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #62CF6F, #D5E73C);
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(1, 22, 77, 0.8);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-content {
+      background: #70B2B2;
+      margin: 2% auto;
+      padding: 0;
+      border-radius: 20px;
+      width: 95%;
+      max-width: 500px;
+      max-height: 95vh;
+      position: relative;
+      animation: modalSlideIn 0.3s ease-out;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-form-container {
+      max-height: calc(95vh - 60px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 2rem;
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar styling */
+    .modal-form-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal-form-container::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+
+    .modal-form-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+      transition: background 0.3s ease;
+    }
+
+    .modal-form-container::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Scroll indicators */
+    .scroll-indicator {
+      position: absolute;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 5px 10px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .scroll-indicator.top {
+      top: 70px;
+    }
+
+    .scroll-indicator.bottom {
+      bottom: 20px;
+    }
+
+    .scroll-indicator.show {
+      opacity: 1;
+    }
+
+    /* Mobile specific adjustments */
+    @media (max-width: 768px) {
+      .modal-content {
+        width: 98%;
+        margin: 1% auto;
+        max-height: 98vh;
+        border-radius: 15px;
+      }
+
+      .modal-form-container {
+        padding: 1.5rem;
+        max-height: calc(98vh - 50px);
+      }
+
+      .close {
+        right: 15px;
+        top: 10px;
+        font-size: 24px;
+      }
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .close {
+      color: #62CF6F;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .close:hover {
+      color: #D5E73C;
+    }
+
+    .phone-mockup {
+      background: #70B2B2;
+      border-radius: 25px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-card {
+      background: rgba(98, 207, 111, 0.1);
+      border: 1px solid rgba(98, 207, 111, 0.3);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 10px 0;
+      animation: slideUp 2s ease-out infinite alternate;
+    }
+
+    @keyframes slideUp {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .earnings-counter {
+      font-family: 'Courier New', monospace;
+      color: #D5E73C;
+      font-weight: bold;
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .accordion-content.active {
+      max-height: 200px;
+    }
+  </style>
+</head>
+
+<body class="text-white overflow-x-hidden">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 glass-card">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <div class="text-2xl font-bold gradient-text">Crensa</div>
+        <button onclick="openModal()" class="btn-primary text-white px-6 py-2 rounded-full font-semibold text-sm">
+          Join Beta
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center justify-center relative overflow-hidden hero-bg pt-20">
+    <!-- Floating Elements -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-20 left-10 w-20 h-20 bg-crensa-green opacity-20 rounded-full animate-float"></div>
+      <div class="absolute top-40 right-20 w-16 h-16 bg-crensa-lime opacity-30 rounded-full animate-bounce-slow">
+      </div>
+      <div class="absolute bottom-40 left-20 w-12 h-12 bg-crensa-teal opacity-25 rounded-full animate-float"
+        style="animation-delay: 2s;"></div>
+      <div class="absolute bottom-20 right-10 w-24 h-24 bg-crensa-yellow opacity-15 rounded-full animate-bounce-slow"
+        style="animation-delay: 1s;"></div>
+    </div>
+
+    <div class="container mx-auto px-6 text-center relative z-10">
+      <!-- Badge -->
+
+
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 fade-in leading-tight">
+        Be First to
+        <br>
+        <span class="gradient-text">Stream to Millions</span>
+        <br>
+      </h1>
+
+      <p class="text-xl md:text-2xl mb-12 max-w-5xl mx-auto opacity-90 fade-in leading-relaxed">
+        Crensa is India's first vertical OTT for regional love stories. <span
+          class="text-crensa-lime font-semibold">Exclusive Creator Early Access</span> is open—launch your
+        series and earn lakhs when we go live.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 fade-in">
+        <button onclick="openModal()" class="btn-primary text-white px-10 py-5 rounded-full text-xl font-bold">
+          Apply for Early Access
+          <svg class="w-5 h-5 ml-2 inline" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+        <div class="flex items-center text-sm opacity-80">
+          <svg class="w-4 h-4 mr-2 text-crensa-lime" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          Free to join • No upfront costs
+        </div>
+      </div>
+
+      <!-- Enhanced Stats -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto fade-in">
+        <div class="modern-card p-8 rounded-2xl text-center">
+          <div class="earnings-counter text-4xl md:text-5xl font-black mb-2" id="earnings">₹2.4L</div>
+          <div class="text-sm opacity-80 uppercase tracking-wider">Average Creator Earnings</div>
+        </div>
+        <div class="modern-card p-8 rounded-2xl text-center">
+          <div class="earnings-counter text-4xl md:text-5xl font-black mb-2" id="views">4.2M</div>
+          <div class="text-sm opacity-80 uppercase tracking-wider">Total Platform Views</div>
+        </div>
+        <div class="modern-card p-8 rounded-2xl text-center">
+          <div class="earnings-counter text-4xl md:text-5xl font-black mb-2" id="followers">156K</div>
+          <div class="text-sm opacity-80 uppercase tracking-wider">New Followers Generated</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Social Proof Hook -->
+  <section class="py-32 fade-in">
+    <div class="container mx-auto px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl md:text-6xl font-black mb-8 gradient-text leading-tight">
+            The next wave of digital fame starts here
+          </h2>
+          <p class="text-xl md:text-2xl max-w-4xl mx-auto opacity-90 leading-relaxed">
+            Every big creator once took their first leap. Those who joined YouTube early became icons. Those
+            who
+            joined TikTok early built empires. Now, those who join Crensa early will lead India's next
+            content era.
+          </p>
+        </div>
+
+        <!-- Desktop Timeline -->
+        <div class="desktop-timeline grid md:grid-cols-3 gap-8 mb-16">
+          <div class="modern-card p-8 rounded-2xl text-center slide-in-left">
+            <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-4">YouTube Era</h3>
+            <p class="opacity-80">Early creators became millionaires</p>
+          </div>
+
+          <div class="modern-card p-8 rounded-2xl text-center slide-in-left" style="animation-delay: 0.2s;">
+            <div class="w-16 h-16 bg-black rounded-full flex items-center justify-center mx-auto mb-6">
+              <span class="text-white font-bold text-lg">T</span>
+            </div>
+            <h3 class="text-xl font-bold mb-4">TikTok Wave</h3>
+            <p class="opacity-80">Quick adopters built empires</p>
+          </div>
+
+          <div class="modern-card p-8 rounded-2xl text-center slide-in-left" style="animation-delay: 0.4s;">
+            <div
+              class="w-16 h-16 bg-gradient-to-r from-crensa-green to-crensa-lime rounded-full flex items-center justify-center mx-auto mb-6">
+              <span class="text-white font-bold text-lg">C</span>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-crensa-lime">Crensa Now</h3>
+            <p class="opacity-80">Your opportunity awaits</p>
+          </div>
+        </div>
+
+        <!-- Mobile Swipe Timeline -->
+        <div class="mobile-timeline mb-16">
+          <div class="swipe-container" id="swipeContainer">
+            <div class="swipe-cards" id="swipeCards">
+              <!-- YouTube Card -->
+              <div class="swipe-card active" data-index="0">
+                <div class="modern-card p-8 rounded-2xl text-center h-full card-floating">
+                  <div class="w-20 h-20 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
+                  </div>
+                  <h3 class="text-2xl font-bold mb-4">YouTube Era</h3>
+                  <p class="opacity-80 text-lg">Early creators became millionaires</p>
+                  <div class="mt-6 text-sm opacity-60">2005 - 2015</div>
+                </div>
+              </div>
+
+              <!-- TikTok Card -->
+              <div class="swipe-card next" data-index="1">
+                <div class="modern-card p-8 rounded-2xl text-center h-full card-floating" style="animation-delay: 1s;">
+                  <div class="w-20 h-20 bg-black rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-white font-bold text-2xl">T</span>
+                  </div>
+                  <h3 class="text-2xl font-bold mb-4">TikTok Wave</h3>
+                  <p class="opacity-80 text-lg">Quick adopters built empires</p>
+                  <div class="mt-6 text-sm opacity-60">2016 - 2022</div>
+                </div>
+              </div>
+
+              <!-- Crensa Card -->
+              <div class="swipe-card next" data-index="2">
+                <div class="modern-card p-8 rounded-2xl text-center h-full card-floating card-glow"
+                  style="animation-delay: 2s;">
+                  <div
+                    class="w-20 h-20 bg-gradient-to-r from-crensa-green to-crensa-lime rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-white font-bold text-2xl">C</span>
+                  </div>
+                  <h3 class="text-2xl font-bold mb-4 text-crensa-lime">Crensa Now</h3>
+                  <p class="opacity-80 text-lg">Your opportunity awaits</p>
+                  <div class="mt-6 text-sm text-crensa-lime font-semibold">2024 - Future</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Swipe Indicators -->
+          <div class="swipe-indicators">
+            <div class="indicator active" data-index="0"></div>
+            <div class="indicator" data-index="1"></div>
+            <div class="indicator" data-index="2"></div>
+          </div>
+
+          <!-- Swipe Instructions -->
+          <div class="text-center mt-6 opacity-60">
+            <p class="text-sm">← Swipe to explore the timeline →</p>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button onclick="openModal()" class="btn-primary text-white px-8 py-4 rounded-full font-bold text-lg">
+            Be One of the First 50 Creators
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Vision + Positioning -->
+  <section class="py-32 fade-in">
+    <div class="container mx-auto px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div class="slide-in-left">
+            <div class="inline-flex items-center glass-card px-4 py-2 rounded-full mb-8">
+              <span class="w-2 h-2 bg-crensa-lime rounded-full mr-2 animate-pulse"></span>
+              <span class="text-sm font-medium">Platform Revolution</span>
+            </div>
+
+            <h2 class="text-4xl md:text-6xl font-black mb-8 leading-tight">
+              A new stage for <span class="gradient-text">short-form storytellers</span>
+            </h2>
+
+            <p class="text-xl mb-8 opacity-90 leading-relaxed">
+              Unlike social media platforms built for quick views, Crensa is built for lasting impact.
+              Here,
+              you don't post clips — you premiere episodes. You don't chase algorithms — you build
+              fanbases.
+            </p>
+
+            <div class="glass-card p-6 rounded-2xl mb-8">
+              <p class="text-lg font-semibold text-crensa-lime mb-2">
+                Crensa is where short-form meets cinema.
+              </p>
+              <p class="opacity-90">Each creator becomes a storyteller with their own vertical show.</p>
+            </div>
+
+            <div class="flex items-center space-x-6">
+              <div class="text-center">
+                <div class="text-2xl font-bold text-crensa-lime">10M+</div>
+                <div class="text-sm opacity-70">Target Audience</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-crensa-green">₹5L+</div>
+                <div class="text-sm opacity-70">Max Earnings</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-crensa-teal">50</div>
+                <div class="text-sm opacity-70">Beta Spots</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide-in-right">
+            <div class="relative">
+              <!-- Comparison Cards -->
+              <div class="space-y-6">
+                <div class="modern-card p-8 rounded-2xl opacity-60 transform -rotate-2">
+                  <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-gray-500 rounded-full mr-3"></div>
+                    <span class="font-semibold text-gray-300">Social Media</span>
+                  </div>
+                  <ul class="space-y-2 text-sm opacity-70">
+                    <li>• Quick clips for views</li>
+                    <li>• Algorithm dependency</li>
+                    <li>• Temporary engagement</li>
+                    <li>• Limited monetization</li>
+                  </ul>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl transform rotate-2 border-2 border-crensa-lime">
+                  <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-r from-crensa-green to-crensa-lime rounded-full mr-3">
+                    </div>
+                    <span class="font-bold text-crensa-lime">Crensa Platform</span>
+                  </div>
+                  <ul class="space-y-2 text-sm">
+                    <li class="flex items-center">
+                      <svg class="w-4 h-4 text-crensa-green mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                      Episode premieres
+                    </li>
+                    <li class="flex items-center">
+                      <svg class="w-4 h-4 text-crensa-green mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                      Dedicated fanbase building
+                    </li>
+                    <li class="flex items-center">
+                      <svg class="w-4 h-4 text-crensa-green mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                      Long-term impact
+                    </li>
+                    <li class="flex items-center">
+                      <svg class="w-4 h-4 text-crensa-green mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                      Multiple revenue streams
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+  <! -- The Why Now Section --!>
+    <section class="py-20 gradient-bg fade-in">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold mb-6">Early creators always win</h2>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto mb-12 opacity-90">
+          Every platform has its early champions. They get the spotlight, the visibility, and the brand deals
+          first.
+        </p>
+
+        <!-- Desktop Benefits -->
+        <div class="desktop-benefits grid md:grid-cols-3 gap-8 mb-12">
+          <div class="bg-white bg-opacity-10 backdrop-blur-lg p-6 rounded-2xl">
+            <div class="w-16 h-16 bg-crensa-lime rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-crensa-navy" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Exclusive Home Page Spotlight</h3>
+            <p class="opacity-90">Your series featured front and centre when Crensa goes live</p>
+          </div>
+
+          <div class="bg-white bg-opacity-10 backdrop-blur-lg p-6 rounded-2xl">
+            <div class="w-16 h-16 bg-crensa-green rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M2 6a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Launch Campaign Access</h3>
+            <p class="opacity-90">Appear in Crensa's marketing promos and press coverage</p>
+          </div>
+
+          <div class="bg-white bg-opacity-10 backdrop-blur-lg p-6 rounded-2xl">
+            <div class="w-16 h-16 bg-crensa-teal rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
+                  clip-rule="evenodd" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">First Monetisation Wave</h3>
+            <p class="opacity-90">Early creators earn from Crensa Originals and brand partnerships</p>
+          </div>
+        </div>
+
+        <!-- Mobile Benefits Swipe Cards -->
+        <div class="mobile-benefits mb-12">
+          <div class="benefits-swipe-container" id="benefitsSwipeContainer">
+            <div class="benefits-swipe-cards" id="benefitsSwipeCards">
+              <!-- Spotlight Card -->
+              <div class="benefits-swipe-card active" data-index="0">
+                <div class="benefits-card-content">
+                  <div class="benefits-icon-wrapper">
+                    <div class="w-20 h-20 bg-crensa-lime rounded-full flex items-center justify-center mx-auto">
+                      <svg class="w-10 h-10 text-crensa-navy" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <h3 class="text-2xl font-bold mb-4 text-crensa-lime">Exclusive Home Page Spotlight
+                  </h3>
+                  <p class="opacity-90 text-lg leading-relaxed">Your series featured front and centre
+                    when Crensa goes live</p>
+                  <div class="mt-4 text-sm opacity-70">Premium Placement</div>
+                </div>
+              </div>
+
+              <!-- Campaign Card -->
+              <div class="benefits-swipe-card next" data-index="1">
+                <div class="benefits-card-content">
+                  <div class="benefits-icon-wrapper">
+                    <div class="w-20 h-20 bg-crensa-green rounded-full flex items-center justify-center mx-auto">
+                      <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          d="M2 6a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <h3 class="text-2xl font-bold mb-4 text-crensa-green">Launch Campaign Access</h3>
+                  <p class="opacity-90 text-lg leading-relaxed">Appear in Crensa's marketing promos
+                    and press coverage</p>
+                  <div class="mt-4 text-sm opacity-70">Media Exposure</div>
+                </div>
+              </div>
+
+              <!-- Monetization Card -->
+              <div class="benefits-swipe-card next" data-index="2">
+                <div class="benefits-card-content">
+                  <div class="benefits-icon-wrapper">
+                    <div class="w-20 h-20 bg-crensa-teal rounded-full flex items-center justify-center mx-auto">
+                      <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                        <path fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
+                          clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                  <h3 class="text-2xl font-bold mb-4 text-crensa-teal">First Monetisation Wave</h3>
+                  <p class="opacity-90 text-lg leading-relaxed">Early creators earn from Crensa
+                    Originals and brand partnerships</p>
+                  <div class="mt-4 text-sm opacity-70">Revenue Streams</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Benefits Swipe Indicators -->
+          <div class="benefits-swipe-indicators">
+            <div class="benefits-indicator active" data-index="0"></div>
+            <div class="benefits-indicator" data-index="1"></div>
+            <div class="benefits-indicator" data-index="2"></div>
+          </div>
+
+          <!-- Swipe Instructions -->
+          <div class="text-center mt-6 opacity-60">
+            <p class="text-sm">← Swipe to explore benefits →</p>
+          </div>
+        </div>
+
+        <button onclick="openModal()" class="apply-now-btn text-crensa-navy px-8 py-4 rounded-full text-xl font-bold">
+          <span class="apply-now-btn-text">Apply Now</span>
+          <span class="apply-now-btn-text-short">Apply Now - Limited Beta Slots Available</span>
+          <svg class="w-5 h-5 ml-2 inline-block" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- The Process -->
+    <section class="py-20 fade-in">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-5xl font-bold text-center mb-12">
+          From your phone to a <span class="gradient-text">streaming screen</span>
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+          <div class="text-center">
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-crensa-green to-crensa-teal rounded-full flex items-center justify-center mx-auto mb-6">
+              <span class="text-2xl font-bold text-white">1</span>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-crensa-lime">Pitch Your Story</h3>
+            <p class="opacity-90">Submit your short-form series idea</p>
+          </div>
+
+          <div class="text-center">
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-crensa-teal to-crensa-lime rounded-full flex items-center justify-center mx-auto mb-6">
+              <span class="text-2xl font-bold text-crensa-navy">2</span>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-crensa-green">Create with Support</h3>
+            <p class="opacity-90">Crensa helps you plan, shoot, and publish</p>
+          </div>
+
+          <div class="text-center">
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-crensa-lime to-crensa-yellow rounded-full flex items-center justify-center mx-auto mb-6">
+              <span class="text-2xl font-bold text-crensa-navy">3</span>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-crensa-yellow">Stream and Earn</h3>
+            <p class="opacity-90">Watch your show go live and start earning from views</p>
+          </div>
+        </div>
+
+        <p class="text-center text-lg text-crensa-lime font-semibold">
+          You don't need millions of followers. Just one powerful story.
+        </p>
+      </div>
+    </section>
+
+    <!-- Emotional Pull -->
+    <section class="py-20 fade-in" style="background-color: #70B2B2;">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold mb-6">
+          Built by creators, <span class="gradient-text">for creators</span>
+        </h2>
+        <p class="text-lg md:text-xl max-w-4xl mx-auto mb-8 opacity-90">
+          Crensa is not another social media app. It's a creator-led movement. A space where India's
+          storytellers get the same respect as filmmakers. Where college romance, friendship, heartbreak, and
+          hustle stories get the spotlight they deserve.
+        </p>
+        <p class="text-crensa-lime font-semibold text-lg">
+          Be part of the creators who redefine how India watches stories.
+        </p>
+      </div>
+    </section>
+
+    <!-- The Money Section -->
+    <section class="py-20 fade-in">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-5xl font-bold text-center mb-6">
+          Your story can earn you <span class="gradient-text">lakhs</span>
+        </h2>
+        <p class="text-lg md:text-xl text-center max-w-4xl mx-auto mb-12 opacity-90">
+          Crensa creators earn from multiple revenue streams — views, brand placements, and platform bonuses.
+          Our goal? To help every creator earn ₹1L to ₹5L per season, based on performance.
+        </p>
+
+        <div class="max-w-2xl mx-auto p-8 rounded-2xl border border-crensa-green border-opacity-30"
+          style="background-color: #70B2B2;">
+          <h3 class="text-2xl font-bold text-center mb-6 text-crensa-lime">Potential Earnings Calculator</h3>
+
+          <div class="mb-6">
+            <label class="block text-sm font-medium mb-2">Series Views:</label>
+            <input type="range" id="viewsSlider" min="100000" max="5000000" step="100000" value="1500000"
+              class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+            <div class="flex justify-between text-sm text-gray-400 mt-1">
+              <span>100K</span>
+              <span>5M</span>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <div class="text-sm opacity-70 mb-2">If your 3-part series gets</div>
+            <div class="text-2xl font-bold text-crensa-yellow mb-2" id="viewsDisplay">1.5M views</div>
+            <div class="text-sm opacity-70 mb-2">=</div>
+            <div class="text-3xl font-bold text-crensa-green" id="earningsDisplay">₹1.2L potential earnings
+            </div>
+          </div>
+
+          <p class="text-xs text-center mt-4 opacity-70">
+            Estimated range. Actual figures depend on audience engagement and brand collaborations.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 fade-in">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-5xl font-bold text-center mb-6 gradient-text">Already in motion</h2>
+        <p class="text-lg text-center max-w-4xl mx-auto mb-12 opacity-90">
+          Crensa's beta phase features handpicked creators testing exclusive formats before public launch.
+          These pioneers are shaping the next generation of short-form entertainment.
+        </p>
+
+        <!-- Testimonial Slideshow -->
+        <div class="testimonial-slideshow" id="testimonialSlideshow">
+          <div class="testimonial-slides" id="testimonialSlides">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-slide active">
+              <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                  <div
+                    class="w-20 h-20 bg-gradient-to-br from-crensa-green to-crensa-teal rounded-full flex items-center justify-center mx-auto">
+                    <span class="text-white font-bold text-2xl">A</span>
+                  </div>
+                </div>
+                <div class="testimonial-quote">
+                  Feels like Netflix, but built for us. The platform gives creators the respect we
+                  deserve.
+                </div>
+                <div class="testimonial-author">Arjun K.</div>
+                <div class="testimonial-role">Romance Creator • 2.3M Followers</div>
+              </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                  <div
+                    class="w-20 h-20 bg-gradient-to-br from-crensa-teal to-crensa-lime rounded-full flex items-center justify-center mx-auto">
+                    <span class="text-crensa-navy font-bold text-2xl">P</span>
+                  </div>
+                </div>
+                <div class="testimonial-quote">
+                  Finally a platform that respects creator storytelling. This is the future of
+                  content.
+                </div>
+                <div class="testimonial-author">Priya S.</div>
+                <div class="testimonial-role">Drama Creator • 1.8M Followers</div>
+              </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                  <div
+                    class="w-20 h-20 bg-gradient-to-br from-crensa-lime to-crensa-yellow rounded-full flex items-center justify-center mx-auto">
+                    <span class="text-crensa-navy font-bold text-2xl">R</span>
+                  </div>
+                </div>
+                <div class="testimonial-quote">
+                  Can't wait for my series to drop on Crensa. The beta experience has been incredible!
+                </div>
+                <div class="testimonial-author">Rahul M.</div>
+                <div class="testimonial-role">Comedy Creator • 3.1M Followers</div>
+              </div>
+            </div>
+
+            <!-- Testimonial 4 -->
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                  <div
+                    class="w-20 h-20 bg-gradient-to-br from-crensa-pink to-crensa-rose rounded-full flex items-center justify-center mx-auto">
+                    <span class="text-white font-bold text-2xl">S</span>
+                  </div>
+                </div>
+                <div class="testimonial-quote">
+                  Crensa understands what creators need. It's not just another platform, it's our
+                  stage.
+                </div>
+                <div class="testimonial-author">Sneha R.</div>
+                <div class="testimonial-role">Lifestyle Creator • 1.5M Followers</div>
+              </div>
+            </div>
+
+            <!-- Testimonial 5 -->
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                  <div
+                    class="w-20 h-20 bg-gradient-to-br from-crensa-navy to-crensa-magenta rounded-full flex items-center justify-center mx-auto">
+                    <span class="text-white font-bold text-2xl">V</span>
+                  </div>
+                </div>
+                <div class="testimonial-quote">
+                  The monetization opportunities are game-changing. Early creators will definitely win
+                  big.
+                </div>
+                <div class="testimonial-author">Vikram T.</div>
+                <div class="testimonial-role">Tech Creator • 2.7M Followers</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slideshow Controls -->
+          <div class="slideshow-controls">
+            <button class="slideshow-btn" id="prevBtn" onclick="changeTestimonialSlide(-1)">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </button>
+
+            <div class="slideshow-nav">
+              <div class="slideshow-dot active" onclick="goToTestimonialSlide(0)"></div>
+              <div class="slideshow-dot" onclick="goToTestimonialSlide(1)"></div>
+              <div class="slideshow-dot" onclick="goToTestimonialSlide(2)"></div>
+              <div class="slideshow-dot" onclick="goToTestimonialSlide(3)"></div>
+              <div class="slideshow-dot" onclick="goToTestimonialSlide(4)"></div>
+            </div>
+
+            <button class="slideshow-btn" id="nextBtn" onclick="changeTestimonialSlide(1)">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Auto-play Progress Bar -->
+          <div class="slideshow-progress">
+            <div class="slideshow-progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+      </div>
+    </section> <!- - FAQ Section -->
+      <section class="py-20 fade-in">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl md:text-5xl font-bold text-center mb-12 gradient-text">Quick Answers</h2>
+
+          <div class="max-w-3xl mx-auto">
+            <div class="mb-4">
+              <button
+                class="accordion-btn w-full text-left p-6 bg-white bg-opacity-5 backdrop-blur-lg rounded-lg border border-crensa-green border-opacity-20 hover:bg-opacity-10 transition-all duration-300"
+                onclick="toggleAccordion(0)">
+                <div class="flex justify-between items-center">
+                  <span class="text-lg font-semibold">Do I need a large following to join?</span>
+                  <span class="accordion-icon text-crensa-lime text-2xl">+</span>
+                </div>
+              </button>
+              <div class="accordion-content bg-white bg-opacity-5 rounded-b-lg px-6">
+                <p class="py-4 opacity-90">No. We're looking for storytellers, not influencers. Your
+                  creativity and story matter more than your follower count.</p>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <button
+                class="accordion-btn w-full text-left p-6 bg-white bg-opacity-5 backdrop-blur-lg rounded-lg border border-crensa-teal border-opacity-20 hover:bg-opacity-10 transition-all duration-300"
+                onclick="toggleAccordion(1)">
+                <div class="flex justify-between items-center">
+                  <span class="text-lg font-semibold">What kind of stories work best?</span>
+                  <span class="accordion-icon text-crensa-teal text-2xl">+</span>
+                </div>
+              </button>
+              <div class="accordion-content bg-white bg-opacity-5 rounded-b-lg px-6">
+                <p class="py-4 opacity-90">Relatable love, college life, friendship, or emotion-driven
+                  stories. Think authentic Indian experiences that resonate with young audiences.</p>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <button
+                class="accordion-btn w-full text-left p-6 bg-white bg-opacity-5 backdrop-blur-lg rounded-lg border border-crensa-lime border-opacity-20 hover:bg-opacity-10 transition-all duration-300"
+                onclick="toggleAccordion(2)">
+                <div class="flex justify-between items-center">
+                  <span class="text-lg font-semibold">Is this free to join?</span>
+                  <span class="accordion-icon text-crensa-lime text-2xl">+</span>
+                </div>
+              </button>
+              <div class="accordion-content bg-white bg-opacity-5 rounded-b-lg px-6">
+                <p class="py-4 opacity-90">Yes, the beta program is completely free for selected
+                  creators. We invest in your success.</p>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <button
+                class="accordion-btn w-full text-left p-6 bg-white bg-opacity-5 backdrop-blur-lg rounded-lg border border-crensa-yellow border-opacity-20 hover:bg-opacity-10 transition-all duration-300"
+                onclick="toggleAccordion(3)">
+                <div class="flex justify-between items-center">
+                  <span class="text-lg font-semibold">When does Crensa launch officially?</span>
+                  <span class="accordion-icon text-crensa-yellow text-2xl">+</span>
+                </div>
+              </button>
+              <div class="accordion-content bg-white bg-opacity-5 rounded-b-lg px-6">
+                <p class="py-4 opacity-90">The full platform launches soon after beta testing. Early
+                  creators go live first and get maximum visibility.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final CTA -->
+      <section class="py-20 gradient-bg fade-in">
+        <div class="container mx-auto px-6 text-center">
+          <h2 class="text-3xl md:text-6xl font-bold mb-6">This is your moment</h2>
+          <p class="text-lg md:text-2xl mb-12 max-w-3xl mx-auto opacity-90">
+            Your audience is waiting. The platform is ready. All that's missing is your story.
+          </p>
+          <button onclick="openModal()"
+            class="final-cta-btn text-crensa-navy px-12 py-6 rounded-full text-2xl font-bold animate-pulse-slow">
+            <span class="final-cta-text-mobile">Join Beta Program</span>
+            <span class="final-cta-text-desktop">Apply for Crensa Creator Beta Program</span>
+            <svg class="w-6 h-6 ml-2 inline-block" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="py-12" style="background-color: #70B2B2;">
+        <div class="container mx-auto px-6 text-center">
+          <p class="text-lg opacity-90">
+            <span class="gradient-text font-bold">Crensa</span> — Streaming India's most relatable love
+            stories. Built in India. Made for creators.
+          </p>
+        </div>
+      </footer>
+
+      <!-- Application Modal -->
+      <div id="applicationModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+
+          <!-- Scroll Indicators -->
+          <div class="scroll-indicator top" id="scrollTopIndicator">
+            ↑ Scroll up for more
+          </div>
+          <div class="scroll-indicator bottom" id="scrollBottomIndicator">
+            ↓ Scroll down for more
+          </div>
+
+          <div class="modal-form-container" id="modalFormContainer">
+            <h2 class="text-2xl font-bold mb-6 text-center gradient-text">Join Crensa Creator Beta</h2>
+            <form id="applicationForm" onsubmit="submitApplication(event)">
+              <div class="mb-6">
+                <label class="block text-sm font-medium mb-2" style="color: #2D3748;">Full Name
+                  *</label>
+                <input type="text" id="name" required
+                  class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-crensa-green border-opacity-30 focus:border-crensa-lime focus:outline-none transition-colors duration-300"
+                  placeholder="Enter your full name">
+              </div>
+
+              <div class="mb-6">
+                <label class="block text-sm font-medium mb-2" style="color: #2D3748;">Email Address
+                  *</label>
+                <input type="email" id="email" required
+                  class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-crensa-green border-opacity-30 focus:border-crensa-lime focus:outline-none transition-colors duration-300"
+                  placeholder="your.email@example.com">
+              </div>
+
+              <div class="mb-6">
+                <label class="block text-sm font-medium mb-2" style="color: #2D3748;">Mobile Number
+                  *</label>
+                <input type="tel" id="mobile" required
+                  class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-crensa-green border-opacity-30 focus:border-crensa-lime focus:outline-none transition-colors duration-300"
+                  placeholder="+91 98765 43210">
+              </div>
+
+              <div class="mb-6">
+                <label class="block text-sm font-medium mb-2" style="color: #2D3748;">Creator
+                  URL/Portfolio Link *</label>
+                <input type="url" id="portfolio" required
+                  class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-crensa-green border-opacity-30 focus:border-crensa-lime focus:outline-none transition-colors duration-300"
+                  placeholder="https://instagram.com/yourhandle or your portfolio">
+              </div>
+
+              <div class="mb-6">
+                <label class="block text-sm font-medium mb-2" style="color: #2D3748;">Example Video
+                  Link</label>
+                <input type="url" id="videoLink"
+                  class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-crensa-green border-opacity-30 focus:border-crensa-lime focus:outline-none transition-colors duration-300"
+                  placeholder="https://youtube.com/watch?v=... or https://instagram.com/reel/...">
+                <p class="text-xs mt-1 opacity-70" style="color: #4A5568;">Share your best content
+                  example (YouTube, Instagram, TikTok, etc.)</p>
+              </div>
+
+              <div class="mb-6">
+                <label class="block text-sm font-medium mb-2" style="color: #2D3748;">Tell us about your
+                  story idea (optional)</label>
+                <textarea id="storyIdea" rows="3"
+                  class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-crensa-green border-opacity-30 focus:border-crensa-lime focus:outline-none transition-colors duration-300"
+                  placeholder="Brief description of your series concept..."></textarea>
+              </div>
+
+              <button type="submit"
+                class="w-full bg-gradient-to-r from-crensa-green to-crensa-lime text-crensa-navy py-4 rounded-lg text-lg font-bold hover:scale-105 transition-transform duration-300">
+                Submit Application
+                <svg class="w-5 h-5 ml-2 inline-block" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <script>
+
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://wodfmmxlipcmiukhbdbb.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndvZGZtbXhsaXBjbWl1a2hiZGJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxNDI1NzMsImV4cCI6MjA3NzcxODU3M30.9lOHquxIB7JCuN6hGVXvhhHCXBxH6-pJqQZnZGcrEg4';
+
+        // Initialize Supabase client
+        let supabase;
+
+        try {
+          supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+          console.log('✅ Supabase client initialized successfully');
+        } catch (error) {
+          console.error('❌ Failed to initialize Supabase client:', error);
+        }
+
+        // EmailJS Configuration (replace with your actual keys)
+        const EMAILJS_PUBLIC_KEY = 'YOUR_EMAILJS_PUBLIC_KEY'; // Get from EmailJS dashboard
+        const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID'; // Gmail, Outlook, etc.
+        const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // Email template ID
+
+        // Initialize EmailJS
+        if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+          emailjs.init(EMAILJS_PUBLIC_KEY);
+          console.log('✅ EmailJS initialized');
+        }
+
+        // Test database connection
+        async function testDatabaseConnection() {
+          try {
+            console.log('🔍 Testing database connection...');
+
+            // Test basic connection
+            const { data, error } = await supabase
+              .from('creator_applications')
+              .select('count', { count: 'exact', head: true });
+
+            if (error) {
+              console.error('❌ Database connection test failed:', error);
+              return false;
+            }
+
+            console.log('✅ Database connection successful');
+            console.log('📊 Current applications count:', data);
+            return true;
+          } catch (error) {
+            console.error('❌ Database connection error:', error);
+            return false;
+          }
+        }
+
+        // Database setup checker
+        async function checkDatabaseSetup() {
+          try {
+            console.log('🔧 Checking database setup...');
+
+            // Try to describe the table structure
+            const { data, error } = await supabase
+              .from('creator_applications')
+              .select('*')
+              .limit(1);
+
+            if (error) {
+              if (error.message.includes('relation') && error.message.includes('does not exist')) {
+                console.error('❌ Table "creator_applications" does not exist');
+                showNotification('Database setup incomplete. Please create the "creator_applications" table first.', 'error');
+                return false;
+              } else if (error.message.includes('permission denied')) {
+                console.error('❌ Permission denied - RLS might be blocking access');
+                showNotification('Database permissions need to be configured. Please check Row Level Security settings.', 'error');
+                return false;
+              }
+              throw error;
+            }
+
+            console.log('✅ Database setup verified');
+            return true;
+
+          } catch (error) {
+            console.error('❌ Database setup check failed:', error);
+            return false;
+          }
+        }
+
+        // RLS Policy checker and helper
+        async function checkRLSPolicies() {
+          try {
+            console.log('🔍 Checking RLS policies...');
+
+            // Try a test insert to see if policies allow it
+            const testData = {
+              full_name: 'Test User',
+              email: `test-${Date.now()}@example.com`, // Unique email to avoid conflicts
+              mobile_number: '1234567890',
+              portfolio_url: 'https://example.com',
+              application_status: 'test'
+            };
+
+            const { data, error } = await supabase
+              .from('creator_applications')
+              .insert([testData])
+              .select();
+
+            if (error) {
+              if (error.code === '42501' || error.message.includes('row-level security policy')) {
+                console.error('❌ RLS Policy blocks anonymous inserts');
+                console.log(`
+💡 SOLUTION: Run this SQL in your Supabase SQL Editor:
+
+CREATE POLICY "Allow public form submissions" ON creator_applications
+FOR INSERT TO anon WITH CHECK (true);
+
+Or temporarily disable RLS:
+ALTER TABLE creator_applications DISABLE ROW LEVEL SECURITY;
+                                `);
+                return false;
+              }
+              throw error;
+            }
+
+            // Clean up test data
+            if (data && data[0]) {
+              await supabase
+                .from('creator_applications')
+                .delete()
+                .eq('id', data[0].id);
+              console.log('🧹 Test data cleaned up');
+            }
+
+            console.log('✅ RLS policies allow anonymous inserts');
+            return true;
+
+          } catch (error) {
+            console.error('❌ RLS policy check failed:', error);
+            return false;
+          }
+        }
+
+        // Test connection when page loads
+        window.addEventListener('load', () => {
+          setTimeout(async () => {
+            const connectionOk = await testDatabaseConnection();
+            if (connectionOk) {
+              const setupOk = await checkDatabaseSetup();
+              if (setupOk) {
+                await checkRLSPolicies();
+              }
+            }
+          }, 1000);
+        });
+
+        // Debug panel for database testing
+        function createDebugPanel() {
+          // Only show in development (when localhost or specific conditions)
+          if (!window.location.hostname.includes('localhost') && !window.location.search.includes('debug=true')) {
+            return;
+          }
+
+          const debugPanel = document.createElement('div');
+          debugPanel.id = 'debugPanel';
+          debugPanel.style.cssText = `
+                        position: fixed;
+                        top: 10px;
+                        left: 10px;
+                        background: rgba(0, 0, 0, 0.9);
+                        color: white;
+                        padding: 15px;
+                        border-radius: 8px;
+                        font-family: monospace;
+                        font-size: 12px;
+                        z-index: 9999;
+                        max-width: 300px;
+                        border: 1px solid #333;
+                    `;
+
+          debugPanel.innerHTML = `
+                        <div style="margin-bottom: 10px; font-weight: bold;">🔧 Supabase Debug Panel</div>
+                        <div id="debugStatus">Initializing...</div>
+                        <button onclick="testDatabaseConnection()" style="margin-top: 10px; padding: 5px 10px; background: #333; color: white; border: 1px solid #555; border-radius: 4px; cursor: pointer;">Test Connection</button>
+                        <button onclick="checkDatabaseSetup()" style="margin-top: 5px; padding: 5px 10px; background: #333; color: white; border: 1px solid #555; border-radius: 4px; cursor: pointer;">Check Setup</button>
+                        <button onclick="checkRLSPolicies()" style="margin-top: 5px; padding: 5px 10px; background: #d32f2f; color: white; border: 1px solid #555; border-radius: 4px; cursor: pointer;">Check RLS</button>
+                        <button onclick="document.getElementById('debugPanel').remove()" style="margin-top: 5px; padding: 5px 10px; background: #666; color: white; border: none; border-radius: 4px; cursor: pointer;">Close</button>
+                    `;
+
+          document.body.appendChild(debugPanel);
+
+          // Update status
+          const statusDiv = document.getElementById('debugStatus');
+          statusDiv.innerHTML = `
+                        URL: ${SUPABASE_URL ? '✅' : '❌'}<br>
+                        Key: ${SUPABASE_ANON_KEY ? '✅' : '❌'}<br>
+                        Client: ${supabase ? '✅' : '❌'}
+                    `;
+        }
+
+        // Email confirmation function
+        async function sendConfirmationEmail(email, name, applicationId) {
+          try {
+            console.log('📧 Sending confirmation email...');
+
+            // Method 1: Using Supabase Edge Functions (requires setup)
+            const { data, error } = await supabase.functions.invoke('send-confirmation-email', {
+              body: {
+                email: email,
+                name: name,
+                applicationId: applicationId,
+                subject: 'Crensa Creator Beta - Application Received',
+                template: 'creator-application-confirmation'
+              }
+            });
+
+            if (error) {
+              console.warn('⚠️ Supabase email function not available:', error);
+
+              // Method 2: Fallback to third-party service
+              return await sendEmailViaWebhook(email, name, applicationId);
+            }
+
+            console.log('✅ Confirmation email sent via Supabase');
+            return true;
+
+          } catch (error) {
+            console.error('❌ Email sending failed:', error);
+            return false;
+          }
+        }
+
+        // Fallback email method using webhook/third-party service
+        async function sendEmailViaWebhook(email, name, applicationId) {
+          try {
+            // You can replace this with your preferred email service
+            // Examples: EmailJS, Formspree, Netlify Forms, etc.
+
+            const emailData = {
+              to: email,
+              subject: 'Crensa Creator Beta - Application Received',
+              html: `
+                                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                                    <h2 style="color: #01164D;">Thank you for applying to Crensa Creator Beta!</h2>
+                                    
+                                    <p>Hi ${name},</p>
+                                    
+                                    <p>We've received your application for the Crensa Creator Beta Program.</p>
+                                    
+                                    <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                                        <h3>Application Details:</h3>
+                                        <p><strong>Application ID:</strong> ${applicationId}</p>
+                                        <p><strong>Email:</strong> ${email}</p>
+                                        <p><strong>Status:</strong> Under Review</p>
+                                    </div>
+                                    
+                                    <p>Our team will review your application and get back to you within 48 hours.</p>
+                                    
+                                    <p>Keep creating amazing content!</p>
+                                    
+                                    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
+                                        <p style="color: #666; font-size: 14px;">
+                                            Best regards,<br>
+                                            The Crensa Team
+                                        </p>
+                                    </div>
+                                </div>
+                            `
+            };
+
+            // Example using EmailJS (you need to set this up)
+            if (typeof emailjs !== 'undefined') {
+              const result = await emailjs.send(
+                'YOUR_SERVICE_ID',
+                'YOUR_TEMPLATE_ID',
+                emailData
+              );
+              console.log('✅ Email sent via EmailJS');
+              return true;
+            }
+
+            // Example using fetch to your own email endpoint
+            const response = await fetch('/api/send-email', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(emailData)
+            });
+
+            if (response.ok) {
+              console.log('✅ Email sent via custom endpoint');
+              return true;
+            }
+
+            console.warn('⚠️ No email service configured');
+            return false;
+
+          } catch (error) {
+            console.error('❌ Fallback email failed:', error);
+            return false;
+          }
+        }
+
+        // Create debug panel on load (only in development)
+        window.addEventListener('load', () => {
+          setTimeout(createDebugPanel, 500);
+        });
+
+        // Enhanced animation on scroll
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, observerOptions);
+
+        // Observe all animation elements
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+          observer.observe(el);
+        });
+
+        // Dynamic counter animation
+        function animateCounters() {
+          const earnings = document.getElementById('earnings');
+          const views = document.getElementById('views');
+          const followers = document.getElementById('followers');
+
+          setInterval(() => {
+            const earningsValue = (Math.random() * 2 + 1.5).toFixed(1);
+            const viewsValue = (Math.random() * 2 + 3.5).toFixed(1);
+            const followersValue = Math.floor(Math.random() * 50 + 120);
+
+            earnings.textContent = `₹${earningsValue}L`;
+            views.textContent = `${viewsValue}M`;
+            followers.textContent = `${followersValue}K`;
+          }, 3000);
+        }
+
+        // Earnings calculator
+        const viewsSlider = document.getElementById('viewsSlider');
+        const viewsDisplay = document.getElementById('viewsDisplay');
+        const earningsDisplay = document.getElementById('earningsDisplay');
+
+        viewsSlider.addEventListener('input', function () {
+          const views = parseInt(this.value);
+          const earnings = (views * 0.08 / 100000).toFixed(1);
+
+          viewsDisplay.textContent = `${(views / 1000000).toFixed(1)}M views`;
+          earningsDisplay.textContent = `₹${earnings}L potential earnings`;
+        });
+
+        // Modal functions
+        function openModal() {
+          document.getElementById('applicationModal').style.display = 'block';
+          document.body.style.overflow = 'hidden';
+          initScrollIndicators();
+        }
+
+        function closeModal() {
+          document.getElementById('applicationModal').style.display = 'none';
+          document.body.style.overflow = 'auto';
+          resetFormSuccessMessage();
+        }
+
+        // Scroll indicators functionality
+        function initScrollIndicators() {
+          const container = document.getElementById('modalFormContainer');
+          const topIndicator = document.getElementById('scrollTopIndicator');
+          const bottomIndicator = document.getElementById('scrollBottomIndicator');
+
+          if (!container || !topIndicator || !bottomIndicator) return;
+
+          function updateScrollIndicators() {
+            const { scrollTop, scrollHeight, clientHeight } = container;
+            const isAtTop = scrollTop <= 10;
+            const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;
+
+            // Show/hide top indicator
+            if (isAtTop) {
+              topIndicator.classList.remove('show');
+            } else {
+              topIndicator.classList.add('show');
+            }
+
+            // Show/hide bottom indicator
+            if (isAtBottom) {
+              bottomIndicator.classList.remove('show');
+            } else {
+              bottomIndicator.classList.add('show');
+            }
+          }
+
+          // Initial check
+          setTimeout(updateScrollIndicators, 100);
+
+          // Listen for scroll events
+          container.addEventListener('scroll', updateScrollIndicators);
+
+          // Listen for resize events
+          window.addEventListener('resize', updateScrollIndicators);
+
+          // Auto-scroll to show there's more content
+          setTimeout(() => {
+            if (container.scrollHeight > container.clientHeight) {
+              container.scrollTo({
+                top: 50,
+                behavior: 'smooth'
+              });
+              setTimeout(() => {
+                container.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+                });
+              }, 1000);
+            }
+          }, 500);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+          const modal = document.getElementById('applicationModal');
+          if (event.target === modal) {
+            closeModal();
+          }
+        }
+
+        // Accordion functionality
+        function toggleAccordion(index) {
+          const contents = document.querySelectorAll('.accordion-content');
+          const icons = document.querySelectorAll('.accordion-icon');
+
+          contents.forEach((content, i) => {
+            if (i === index) {
+              content.classList.toggle('active');
+              icons[i].textContent = content.classList.contains('active') ? '−' : '+';
+            } else {
+              content.classList.remove('active');
+              icons[i].textContent = '+';
+            }
+          });
+        }
+
+        // Form submission
+        // Form submission with Supabase integration
+        async function submitApplication(event) {
+          event.preventDefault();
+
+          console.log('🚀 Form submission started');
+
+          // Check if Supabase is initialized
+          if (!supabase) {
+            console.error('❌ Supabase client not initialized');
+            showNotification('Database connection error. Please refresh the page and try again.', 'error');
+            return;
+          }
+
+          const name = document.getElementById('name').value.trim();
+          const email = document.getElementById('email').value.trim();
+          const mobile = document.getElementById('mobile').value.trim();
+          const portfolio = document.getElementById('portfolio').value.trim();
+          const videoLink = document.getElementById('videoLink').value.trim();
+          const storyIdea = document.getElementById('storyIdea').value.trim();
+
+          console.log('📝 Form data collected:', { name, email, mobile, portfolio, videoLink: !!videoLink, storyIdea: !!storyIdea });
+
+          // Basic validation
+          if (!name || !email || !mobile || !portfolio) {
+            console.warn('⚠️ Validation failed: Missing required fields');
+            showNotification('Please fill in all required fields.', 'error');
+            return;
+          }
+
+          // Email validation
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            console.warn('⚠️ Validation failed: Invalid email format');
+            showNotification('Please enter a valid email address.', 'error');
+            return;
+          }
+
+          // Mobile validation (more flexible)
+          const cleanMobile = mobile.replace(/[\s\-\(\)]/g, '');
+          if (cleanMobile.length < 10 || cleanMobile.length > 15) {
+            console.warn('⚠️ Validation failed: Invalid mobile number length');
+            showNotification('Please enter a valid mobile number (10-15 digits).', 'error');
+            return;
+          }
+
+          const submitBtn = event.target.querySelector('button[type="submit"]');
+          const originalText = submitBtn.innerHTML;
+
+          // Update button to show loading state
+          submitBtn.innerHTML = 'Submitting... <svg class="w-4 h-4 ml-2 inline-block animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>';
+          submitBtn.disabled = true;
+
+          try {
+            console.log('📤 Preparing data for Supabase...');
+
+            // Prepare data for Supabase
+            const applicationData = {
+              full_name: name,
+              email: email.toLowerCase(),
+              mobile_number: mobile,
+              portfolio_url: portfolio,
+              example_video_url: videoLink || null,
+              story_idea: storyIdea || null,
+              application_status: 'pending',
+              submitted_at: new Date().toISOString(),
+              user_agent: navigator.userAgent,
+              referrer: document.referrer || 'direct'
+            };
+
+            console.log('📊 Application data prepared:', applicationData);
+
+            // Test connection before inserting
+            console.log('🔍 Testing database connection before insert...');
+            const connectionTest = await testDatabaseConnection();
+            if (!connectionTest) {
+              throw new Error('Database connection failed');
+            }
+
+            console.log('💾 Inserting data into Supabase...');
+
+            // Try direct SQL insert if RLS is blocking
+            let data, error;
+
+            try {
+              // Method 1: Standard insert
+              const result = await supabase
+                .from('creator_applications')
+                .insert([applicationData])
+                .select();
+
+              data = result.data;
+              error = result.error;
+
+            } catch (insertError) {
+              console.error('Insert method failed:', insertError);
+              error = insertError;
+            }
+
+            if (error) {
+              console.error('❌ Supabase insertion error:', error);
+              console.error('Error details:', {
+                message: error.message,
+                details: error.details,
+                hint: error.hint,
+                code: error.code
+              });
+              throw error;
+            }
+
+            console.log('✅ Data inserted successfully:', data);
+
+            // Send confirmation email
+            const emailSent = await sendConfirmationEmail(email, name, data[0]?.id);
+
+            // Success - show confirmation
+            // Success - show confirmation in form
+            showFormSuccessMessage('Form Successfully Submitted. We\'ll reach out to you soon.');
+
+            // Close modal and reset form after delay
+            setTimeout(() => {
+              closeModal();
+              document.getElementById('applicationForm').reset();
+            }, 3000);
+
+          } catch (error) {
+            console.error('❌ Submission error:', error);
+
+            let errorMessage = 'There was an error submitting your application. ';
+
+            // Handle specific error types
+            if (error.message?.includes('duplicate key') || error.code === '23505') {
+              errorMessage = 'This email has already been used for an application. Please use a different email address.';
+            } else if (error.message?.includes('relation') && error.message?.includes('does not exist')) {
+              errorMessage = 'Database table not found. Please contact support to set up the database.';
+            } else if (error.message?.includes('permission denied') || error.code === '42501' || error.message?.includes('row-level security policy')) {
+              errorMessage = `Database permission error (RLS Policy). 
+
+🔧 To fix this, run this SQL in your Supabase SQL Editor:
+
+CREATE POLICY "Allow public form submissions" ON creator_applications
+FOR INSERT TO anon WITH CHECK (true);
+
+Or temporarily disable RLS:
+ALTER TABLE creator_applications DISABLE ROW LEVEL SECURITY;`;
+            } else if (error.message?.includes('network') || !navigator.onLine) {
+              errorMessage = 'Network error. Please check your internet connection and try again.';
+            } else if (error.message?.includes('Database connection failed')) {
+              errorMessage = 'Unable to connect to database. Please try again in a few moments.';
+            } else {
+              errorMessage += `Error: ${error.message}`;
+            }
+
+            showNotification(errorMessage, 'error');
+
+          } finally {
+            // Reset button state
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            console.log('🔄 Form submission completed');
+          }
+        }
+
+        // Form success message function
+        function showFormSuccessMessage(message) {
+          // Hide the form
+          const form = document.getElementById('applicationForm');
+          const formContainer = document.querySelector('.modal-form-container');
+
+          if (form && formContainer) {
+            form.style.display = 'none';
+
+            // Create success message element
+            const successDiv = document.createElement('div');
+            successDiv.id = 'formSuccessMessage';
+            successDiv.className = 'text-center py-12';
+            successDiv.innerHTML = `
+                            <div class="mb-6">
+                                <svg class="w-16 h-16 mx-auto text-crensa-lime mb-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Success!</h3>
+                            <p class="text-lg text-white opacity-90 mb-6">${message}</p>
+                            <div class="animate-pulse">
+                                <p class="text-sm opacity-70">This window will close automatically...</p>
+                            </div>
+                        `;
+
+            // Add success message to form container
+            formContainer.appendChild(successDiv);
+
+            // Add animation
+            setTimeout(() => {
+              successDiv.style.opacity = '0';
+              successDiv.style.transform = 'translateY(20px)';
+              successDiv.style.transition = 'all 0.5s ease-in-out';
+
+              setTimeout(() => {
+                successDiv.style.opacity = '1';
+                successDiv.style.transform = 'translateY(0)';
+              }, 100);
+            }, 100);
+          }
+        }
+
+        // Reset form success message
+        function resetFormSuccessMessage() {
+          const form = document.getElementById('applicationForm');
+          const successMessage = document.getElementById('formSuccessMessage');
+
+          if (form) {
+            form.style.display = 'block';
+          }
+
+          if (successMessage) {
+            successMessage.remove();
+          }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+          // Remove existing notifications
+          const existingNotification = document.querySelector('.notification');
+          if (existingNotification) {
+            existingNotification.remove();
+          }
+
+          // Create notification element
+          const notification = document.createElement('div');
+          notification.className = `notification fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-md transition-all duration-300 transform translate-x-full`;
+
+          // Set colors based on type
+          if (type === 'success') {
+            notification.className += ' bg-green-500 text-white';
+          } else if (type === 'error') {
+            notification.className += ' bg-red-500 text-white';
+          } else {
+            notification.className += ' bg-blue-500 text-white';
+          }
+
+          notification.innerHTML = `
+                        <div class="flex items-start">
+                            <div class="flex-1">
+                                <p class="text-sm font-medium">${message}</p>
+                            </div>
+                            <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-white hover:text-gray-200">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    `;
+
+          document.body.appendChild(notification);
+
+          // Animate in
+          setTimeout(() => {
+            notification.classList.remove('translate-x-full');
+          }, 100);
+
+          // Auto remove after 5 seconds (except for success messages which stay longer)
+          const autoRemoveTime = type === 'success' ? 8000 : 5000;
+          setTimeout(() => {
+            if (notification.parentElement) {
+              notification.classList.add('translate-x-full');
+              setTimeout(() => {
+                if (notification.parentElement) {
+                  notification.remove();
+                }
+              }, 300);
+            }
+          }, autoRemoveTime);
+        }
+
+        // Mobile Swipe Cards Functionality
+        let currentCardIndex = 0;
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+
+        function initSwipeCards() {
+          const swipeContainer = document.getElementById('swipeContainer');
+          const swipeCards = document.getElementById('swipeCards');
+          const cards = document.querySelectorAll('.swipe-card');
+          const indicators = document.querySelectorAll('.indicator');
+
+          if (!swipeContainer) return;
+
+          function updateCards() {
+            cards.forEach((card, index) => {
+              card.classList.remove('active', 'prev', 'next');
+
+              if (index === currentCardIndex) {
+                card.classList.add('active');
+              } else if (index < currentCardIndex) {
+                card.classList.add('prev');
+              } else {
+                card.classList.add('next');
+              }
+            });
+
+            indicators.forEach((indicator, index) => {
+              indicator.classList.toggle('active', index === currentCardIndex);
+            });
+
+            const translateX = -currentCardIndex * 89; // 85% width + 4% margin
+            swipeCards.style.transform = `translateX(${translateX}%)`;
+          }
+
+          function nextCard() {
+            if (currentCardIndex < cards.length - 1) {
+              currentCardIndex++;
+              updateCards();
+            }
+          }
+
+          function prevCard() {
+            if (currentCardIndex > 0) {
+              currentCardIndex--;
+              updateCards();
+            }
+          }
+
+          // Touch events
+          swipeContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            swipeCards.style.transition = 'none';
+          });
+
+          swipeContainer.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX;
+            const diffX = currentX - startX;
+            const translateX = -currentCardIndex * 89 + (diffX / swipeContainer.offsetWidth) * 100;
+            swipeCards.style.transform = `translateX(${translateX}%)`;
+          });
+
+          swipeContainer.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            swipeCards.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+
+            const diffX = currentX - startX;
+            const threshold = 50;
+
+            if (diffX > threshold) {
+              prevCard();
+            } else if (diffX < -threshold) {
+              nextCard();
+            } else {
+              updateCards();
+            }
+          });
+
+          // Mouse events for desktop testing
+          swipeContainer.addEventListener('mousedown', (e) => {
+            startX = e.clientX;
+            isDragging = true;
+            swipeCards.style.transition = 'none';
+            e.preventDefault();
+          });
+
+          swipeContainer.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            currentX = e.clientX;
+            const diffX = currentX - startX;
+            const translateX = -currentCardIndex * 89 + (diffX / swipeContainer.offsetWidth) * 100;
+            swipeCards.style.transform = `translateX(${translateX}%)`;
+          });
+
+          swipeContainer.addEventListener('mouseup', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            swipeCards.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+
+            const diffX = currentX - startX;
+            const threshold = 50;
+
+            if (diffX > threshold) {
+              prevCard();
+            } else if (diffX < -threshold) {
+              nextCard();
+            } else {
+              updateCards();
+            }
+          });
+
+          // Indicator clicks
+          indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+              currentCardIndex = index;
+              updateCards();
+            });
+          });
+
+          // Auto-advance cards every 5 seconds
+          setInterval(() => {
+            if (currentCardIndex < cards.length - 1) {
+              nextCard();
+            } else {
+              currentCardIndex = 0;
+              updateCards();
+            }
+          }, 5000);
+
+          // Initialize
+          updateCards();
+        }
+
+        // Benefits Swipe Cards Functionality
+        let currentBenefitsIndex = 0;
+        let benefitsStartX = 0;
+        let benefitsCurrentX = 0;
+        let isBenefitsDragging = false;
+
+        function initBenefitsSwipeCards() {
+          const benefitsContainer = document.getElementById('benefitsSwipeContainer');
+          const benefitsCards = document.getElementById('benefitsSwipeCards');
+          const cards = document.querySelectorAll('.benefits-swipe-card');
+          const indicators = document.querySelectorAll('.benefits-indicator');
+
+          if (!benefitsContainer) return;
+
+          function updateBenefitsCards() {
+            cards.forEach((card, index) => {
+              card.classList.remove('active', 'prev', 'next');
+
+              if (index === currentBenefitsIndex) {
+                card.classList.add('active');
+              } else if (index < currentBenefitsIndex) {
+                card.classList.add('prev');
+              } else {
+                card.classList.add('next');
+              }
+            });
+
+            indicators.forEach((indicator, index) => {
+              indicator.classList.toggle('active', index === currentBenefitsIndex);
+            });
+
+            const translateX = -currentBenefitsIndex * 93; // 90% width + 3% margin
+            benefitsCards.style.transform = `translateX(${translateX}%)`;
+          }
+
+          function nextBenefitsCard() {
+            if (currentBenefitsIndex < cards.length - 1) {
+              currentBenefitsIndex++;
+              updateBenefitsCards();
+            }
+          }
+
+          function prevBenefitsCard() {
+            if (currentBenefitsIndex > 0) {
+              currentBenefitsIndex--;
+              updateBenefitsCards();
+            }
+          }
+
+          // Touch events
+          benefitsContainer.addEventListener('touchstart', (e) => {
+            benefitsStartX = e.touches[0].clientX;
+            isBenefitsDragging = true;
+            benefitsCards.style.transition = 'none';
+          });
+
+          benefitsContainer.addEventListener('touchmove', (e) => {
+            if (!isBenefitsDragging) return;
+            benefitsCurrentX = e.touches[0].clientX;
+            const diffX = benefitsCurrentX - benefitsStartX;
+            const translateX = -currentBenefitsIndex * 93 + (diffX / benefitsContainer.offsetWidth) * 100;
+            benefitsCards.style.transform = `translateX(${translateX}%)`;
+          });
+
+          benefitsContainer.addEventListener('touchend', (e) => {
+            if (!isBenefitsDragging) return;
+            isBenefitsDragging = false;
+            benefitsCards.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+
+            const diffX = benefitsCurrentX - benefitsStartX;
+            const threshold = 50;
+
+            if (diffX > threshold) {
+              prevBenefitsCard();
+            } else if (diffX < -threshold) {
+              nextBenefitsCard();
+            } else {
+              updateBenefitsCards();
+            }
+          });
+
+          // Mouse events for desktop testing
+          benefitsContainer.addEventListener('mousedown', (e) => {
+            benefitsStartX = e.clientX;
+            isBenefitsDragging = true;
+            benefitsCards.style.transition = 'none';
+            e.preventDefault();
+          });
+
+          benefitsContainer.addEventListener('mousemove', (e) => {
+            if (!isBenefitsDragging) return;
+            benefitsCurrentX = e.clientX;
+            const diffX = benefitsCurrentX - benefitsStartX;
+            const translateX = -currentBenefitsIndex * 93 + (diffX / benefitsContainer.offsetWidth) * 100;
+            benefitsCards.style.transform = `translateX(${translateX}%)`;
+          });
+
+          benefitsContainer.addEventListener('mouseup', (e) => {
+            if (!isBenefitsDragging) return;
+            isBenefitsDragging = false;
+            benefitsCards.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+
+            const diffX = benefitsCurrentX - benefitsStartX;
+            const threshold = 50;
+
+            if (diffX > threshold) {
+              prevBenefitsCard();
+            } else if (diffX < -threshold) {
+              nextBenefitsCard();
+            } else {
+              updateBenefitsCards();
+            }
+          });
+
+          // Indicator clicks
+          indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+              currentBenefitsIndex = index;
+              updateBenefitsCards();
+            });
+          });
+
+          // Auto-advance cards every 4 seconds
+          setInterval(() => {
+            if (currentBenefitsIndex < cards.length - 1) {
+              nextBenefitsCard();
+            } else {
+              currentBenefitsIndex = 0;
+              updateBenefitsCards();
+            }
+          }, 4000);
+
+          // Initialize
+          updateBenefitsCards();
+        }
+
+        // Testimonial Slideshow Functionality
+        let currentTestimonialIndex = 0;
+        let testimonialInterval;
+        let progressInterval;
+        const testimonialAutoPlayDuration = 5000; // 5 seconds
+
+        function initTestimonialSlideshow() {
+          const slides = document.querySelectorAll('.testimonial-slide');
+          const dots = document.querySelectorAll('.slideshow-dot');
+          const progressBar = document.getElementById('progressBar');
+
+          if (!slides.length) return;
+
+          function updateTestimonialSlide() {
+            // Update slides
+            slides.forEach((slide, index) => {
+              slide.classList.toggle('active', index === currentTestimonialIndex);
+            });
+
+            // Update dots
+            dots.forEach((dot, index) => {
+              dot.classList.toggle('active', index === currentTestimonialIndex);
+            });
+
+            // Update slide container position
+            const slidesContainer = document.getElementById('testimonialSlides');
+            slidesContainer.style.transform = `translateX(-${currentTestimonialIndex * 100}%)`;
+
+            // Reset progress bar
+            if (progressBar) {
+              progressBar.style.width = '0%';
+            }
+          }
+
+          function nextTestimonialSlide() {
+            currentTestimonialIndex = (currentTestimonialIndex + 1) % slides.length;
+            updateTestimonialSlide();
+          }
+
+          function prevTestimonialSlide() {
+            currentTestimonialIndex = currentTestimonialIndex === 0 ? slides.length - 1 : currentTestimonialIndex - 1;
+            updateTestimonialSlide();
+          }
+
+          function startAutoPlay() {
+            // Clear existing intervals
+            clearInterval(testimonialInterval);
+            clearInterval(progressInterval);
+
+            // Start auto-play
+            testimonialInterval = setInterval(nextTestimonialSlide, testimonialAutoPlayDuration);
+
+            // Start progress bar animation
+            let progress = 0;
+            progressInterval = setInterval(() => {
+              progress += 100 / (testimonialAutoPlayDuration / 100);
+              if (progressBar) {
+                progressBar.style.width = `${Math.min(progress, 100)}%`;
+              }
+              if (progress >= 100) {
+                progress = 0;
+              }
+            }, 100);
+          }
+
+          function stopAutoPlay() {
+            clearInterval(testimonialInterval);
+            clearInterval(progressInterval);
+            if (progressBar) {
+              progressBar.style.width = '0%';
+            }
+          }
+
+          // Global functions for navigation
+          window.changeTestimonialSlide = function (direction) {
+            stopAutoPlay();
+            if (direction === 1) {
+              nextTestimonialSlide();
+            } else {
+              prevTestimonialSlide();
+            }
+            setTimeout(startAutoPlay, 1000); // Resume auto-play after 1 second
+          };
+
+          window.goToTestimonialSlide = function (index) {
+            stopAutoPlay();
+            currentTestimonialIndex = index;
+            updateTestimonialSlide();
+            setTimeout(startAutoPlay, 1000); // Resume auto-play after 1 second
+          };
+
+          // Keyboard navigation
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+              changeTestimonialSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+              changeTestimonialSlide(1);
+            }
+          });
+
+          // Pause on hover
+          const slideshow = document.getElementById('testimonialSlideshow');
+          if (slideshow) {
+            slideshow.addEventListener('mouseenter', stopAutoPlay);
+            slideshow.addEventListener('mouseleave', startAutoPlay);
+          }
+
+          // Touch/swipe support for mobile
+          let touchStartX = 0;
+          let touchEndX = 0;
+
+          if (slideshow) {
+            slideshow.addEventListener('touchstart', (e) => {
+              touchStartX = e.changedTouches[0].screenX;
+            });
+
+            slideshow.addEventListener('touchend', (e) => {
+              touchEndX = e.changedTouches[0].screenX;
+              const swipeThreshold = 50;
+
+              if (touchStartX - touchEndX > swipeThreshold) {
+                changeTestimonialSlide(1); // Swipe left - next slide
+              } else if (touchEndX - touchStartX > swipeThreshold) {
+                changeTestimonialSlide(-1); // Swipe right - previous slide
+              }
+            });
+          }
+
+          // Initialize
+          updateTestimonialSlide();
+          startAutoPlay();
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function () {
+          animateCounters();
+          initSwipeCards();
+          initBenefitsSwipeCards();
+          initTestimonialSlideshow();
+
+          // Add initial fade-in class to first section
+          setTimeout(() => {
+            document.querySelectorAll('.fade-in').forEach((el, index) => {
+              setTimeout(() => {
+                el.classList.add('visible');
+              }, index * 200);
+            });
+          }, 500);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          });
+        });
+      </script>
+</body>
+
+</html>
